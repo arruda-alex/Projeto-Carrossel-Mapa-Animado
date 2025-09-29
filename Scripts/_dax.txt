@@ -1,0 +1,372 @@
+-- Medidas principais do relatório
+
+Custo = 
+    SUMX(
+        fVendas,
+        [Custo Unitario] * [Qtde Vendida]
+    )
+
+Faturamento = 
+    SUMX(
+        fVendas,
+        [Valor Unitario] * [Qtde Vendida]
+    )
+
+Lucro = [Faturamento] - [Custo] 
+
+Meta = SUM( fMeta[Total] ) 
+
+Meta Diaria = 
+-- Diluição de Meta por Dia
+
+var  vMeta_fixa = 
+    CALCULATE( 
+        [Meta],
+        ALL(dCalendario),
+        VALUES( dCalendario[MesId] ),
+        VALUES( dCalendario[Ano])
+    )
+
+VAR vQtde_dias = 
+    CALCULATE( 
+        COUNTROWS(dCalendario),
+        ALL(dCalendario),
+        VALUES( dCalendario[MesId] ),
+        VALUES( dCalendario[Ano])
+    )
+
+
+VAR vResultado = 
+    IF( 
+        ISFILTERED(dCalendario[Dia]) || ISFILTERED(dCalendario[SemanaAno]),
+        DIVIDE( vMeta_fixa, vQtde_dias),
+        [Meta] 
+    )
+
+RETURN 
+    vResultado     
+
+Porcentagem Meta = DIVIDE( [Faturamento], [Meta Diaria] ) 
+
+
+-- Medidas animadas do relatório
+
+Carrossel = 
+
+VAR vImgBrasil = "https://i.imgur.com/hZPx2rc.png"
+VAR vImgNorte = "https://i.imgur.com/CARGzFT.png"
+VAR vImgNordeste = "https://i.imgur.com/HyrWVNa.png"
+VAR vImgCentroOeste = "https://i.imgur.com/1GIklFu.png"
+VAR vImgSudeste = "https://i.imgur.com/87yfOtS.png"
+VAR vImgSul = "https://i.imgur.com/PwUnQuT.png"
+
+VAR vRegiaoSelecionada = SELECTEDVALUE(dClientes[Regiao], "Brasil")
+
+VAR vSul = 
+"
+    <image href="&vImgBrasil&" id='posicao_1' x='195' y='71' width='190' height='190'/>		
+    <image href="&vImgNorte&" id='posicao_2' x='470' y='218' width='60' height='60'/>		
+    <image href="&vImgNordeste&" id='posicao_3' x='365' y='278' width='60' height='60'/>		
+    <image href="&vImgCentroOeste&" id='posicao_4' x='260' y='308' width='60' height='60'/>		
+    <image href="&vImgSudeste&" id='posicao_5' x='155' y='278' width='60' height='60'/>		
+    <image href="&vImgSul&" id='posicao_6' x='50' y='218' width='60' height='60'/>	
+"
+
+VAR vSudeste = 
+"
+    <image href="&vImgSul&" id='posicao_1' x='195' y='71' width='190' height='190'/>		
+    <image href="&vImgBrasil&" id='posicao_2' x='470' y='218' width='60' height='60'/>		
+    <image href="&vImgNorte&" id='posicao_3' x='365' y='278' width='60' height='60'/>		
+    <image href="&vImgNordeste&" id='posicao_4' x='260' y='308' width='60' height='60'/>		
+    <image href="&vImgCentroOeste&" id='posicao_5' x='155' y='278' width='60' height='60'/>		
+    <image href="&vImgSudeste&" id='posicao_6' x='50' y='218' width='60' height='60'/>	
+"
+
+VAR vCentroOeste = 
+"
+    <image href="&vImgSudeste&" id='posicao_1' x='195' y='71' width='190' height='190'/>		
+    <image href="&vImgSul&" id='posicao_2' x='470' y='218' width='60' height='60'/>		
+    <image href="&vImgBrasil&" id='posicao_3' x='365' y='278' width='60' height='60'/>		
+    <image href="&vImgNorte&" id='posicao_4' x='260' y='308' width='60' height='60'/>		
+    <image href="&vImgNordeste&" id='posicao_5' x='155' y='278' width='60' height='60'/>		
+    <image href="&vImgCentroOeste&" id='posicao_6' x='50' y='218' width='60' height='60'/>	
+"
+
+VAR vNordeste = 
+"
+    <image href="&vImgCentroOeste&" id='posicao_1' x='195' y='71' width='190' height='190'/>		
+    <image href="&vImgSudeste&" id='posicao_2' x='470' y='218' width='60' height='60'/>		
+    <image href="&vImgSul&" id='posicao_3' x='365' y='278' width='60' height='60'/>		
+    <image href="&vImgBrasil&" id='posicao_4' x='260' y='308' width='60' height='60'/>		
+    <image href="&vImgNorte&" id='posicao_5' x='155' y='278' width='60' height='60'/>		
+    <image href="&vImgNordeste&" id='posicao_6' x='50' y='218' width='60' height='60'/>	
+"
+VAR vNorte = 
+"
+    <image href="&vImgNordeste&" id='posicao_1' x='195' y='71' width='190' height='190'/>		
+    <image href="&vImgCentroOeste&" id='posicao_2' x='470' y='218' width='60' height='60'/>		
+    <image href="&vImgSudeste&" id='posicao_3' x='365' y='278' width='60' height='60'/>		
+    <image href="&vImgSul&" id='posicao_4' x='260' y='308' width='60' height='60'/>		
+    <image href="&vImgBrasil&" id='posicao_5' x='155' y='278' width='60' height='60'/>		
+    <image href="&vImgNorte&" id='posicao_6' x='50' y='218' width='60' height='60'/>	
+"
+
+VAR vBrasil = 
+"
+    <image href="&vImgNorte&" id='posicao_1' x='195' y='71' width='190' height='190'/>		
+    <image href="&vImgNordeste&" id='posicao_2' x='470' y='218' width='60' height='60'/>		
+    <image href="&vImgCentroOeste&" id='posicao_3' x='365' y='278' width='60' height='60'/>		
+    <image href="&vImgSudeste&" id='posicao_4' x='260' y='308' width='60' height='60'/>		
+    <image href="&vImgSul&" id='posicao_5' x='155' y='278' width='60' height='60'/>		
+    <image href="&vImgBrasil&" id='posicao_6' x='50' y='218' width='60' height='60'/>	
+"
+
+RETURN
+
+"
+<svg viewBox='0 0 580 385' fill='none' xmlns='http://www.w3.org/2000/svg'>
+
+    <style>
+        #posicao_1{animation: anima1_para2 1s linear forwards}
+        #posicao_2{animation: anima2_para3 1s linear forwards}
+        #posicao_3{animation: anima3_para4 1s linear forwards}
+        #posicao_4{animation: anima4_para5 1s linear forwards}
+        #posicao_5{animation: anima5_para6 1s linear forwards}
+        #posicao_6{animation: anima6_para1 1s linear forwards}
+
+        @keyframes anima1_para2{
+            to {x: 470; y: 218; width: 60px; height: 60px}
+        }
+
+        @keyframes anima2_para3{
+            to {x: 365; y: 278; width: 60px; height: 60px}
+        }
+
+        @keyframes anima3_para4{
+            to {x: 260; y: 308; width: 60px; height: 60px}
+        }
+
+        @keyframes anima4_para5{
+            to {x: 155; y: 278; width: 60px; height: 60px}
+        }
+
+        @keyframes anima5_para6{
+            to {x: 50; y: 218; width: 60px; height: 60px}
+        }
+
+        @keyframes anima6_para1{
+            to {x: 195; y: 71; width: 190px; height: 190px}
+        }
+
+        #nome{
+            transform: translateX(-400px);
+            animation: animaTexto 1s linear forwards
+        }
+
+        @keyframes animaTexto{
+            to {transform: translateX(0px)}
+        }
+
+    </style>
+	
+    <g id='strutura_carrossel'>
+
+        "&
+            SWITCH(
+                vRegiaoSelecionada,
+                "Sul", vSul,
+                "Sudeste", vSudeste,
+                "Centro Oeste", vCentroOeste,
+                "Nordeste", vNordeste,
+                "Norte", vNorte,
+                vBrasil
+            )
+        &"
+		
+        <text id='nome' text-anchor='middle' fill='#4a5664' font-family='Segoe UI' font-size='30'>
+			
+            <tspan x='290' y='41.8636'>"&vRegiaoSelecionada&"</tspan>
+		
+        </text>
+		
+        
+    </g>
+
+</svg>
+"
+
+Calendario SVG = 
+
+VAR vDia = SELECTEDVALUE( dCalendario[Dia] )
+
+VAR vPorcentagem = 
+    [Porcentagem Meta] 
+
+
+VAR vPorcentagem_formatada = 
+    FORMAT( vPorcentagem, "0%" )
+
+VAR vValor = [Faturamento] 
+
+VAR vValor_formatado = 
+    SWITCH(
+        TRUE(),
+        vValor >= 1e9, FORMAT( vValor, "R$ #,0,,,.00 Bi" ),
+        vValor >= 1e6, FORMAT( vValor, "R$ #,0,,.00 Mi" ),
+        vValor >= 1e3, FORMAT( vValor, "R$ #,0,.00 K" ),
+        FORMAT( vValor, "R$ #" )
+    )
+
+
+--------------------------------------
+-- BARRA PROGRESSO 
+-------------------------------------
+
+VAR vFator = 70 
+-- tamanho da barra para atingir o 100% 
+
+VAR vTam_max_barra = 90
+-- Valor de corte, para que o progresso não fique colado no elemento do contorno
+
+VAR vProgresso = 
+    ROUND(vFator * vPorcentagem , 0 )
+
+VAR vProgresso_ajustado = 
+    IF(
+        vProgresso <= vTam_max_barra,
+        vProgresso,
+        vTam_max_barra
+    )
+
+
+
+-------------------------------------
+-- LINHA META 
+-------------------------------------
+
+VAR vMeta_desejada = 1
+-- representa 100% em formatado decimal
+
+VAR vDeslocamento_linha_meta  = 
+    ROUND(vFator * vMeta_desejada  , 0 ) + 5
+
+
+
+-------------------------------------
+-- OPACIDADE
+-------------------------------------
+
+VAR vDestaque_escolhido = SELECTEDVALUE( zVisaoCalendario[Escolha] )
+
+VAR vOpacidade = 
+    SWITCH(
+        TRUE(),
+        ISBLANK( vValor ), "0.2",
+        vDestaque_escolhido = "Completo", "1",
+        vDestaque_escolhido = "Acima meta" && vPorcentagem >= vMeta_desejada, "1",
+         vDestaque_escolhido = "Abaixo meta" && vPorcentagem < vMeta_desejada, "1",
+        "0.2"
+    )
+
+
+-------------------------------------------
+-- PAINEL DE FORMATAÇÃO  
+-------------------------------------------
+
+VAR vBarra_progresso_cor = 
+    IF( vPorcentagem >= vMeta_desejada, "#4A5664", "#D16961" )
+
+
+VAR vBarra_fundo_cor = 
+    vBarra_progresso_cor 
+
+VAR vBarra_fundo_opacidade = "0.3"
+-- Tem que ser formatada como texto, ou seja, constar dentro de aspas o valor
+
+VAR vLinha_meta_cor = "#000"
+VAR vLinha_meta_largura = 2
+
+
+VAR vFonte = "Segoe UI"
+
+VAR vDia_cor = "#393D46"
+VAR vDia_tam = 20
+VAR vDia_peso = 600
+
+VAR vValor_cor = "#393D46"
+VAR vValor_tam = 13
+VAR vValor_peso = 650
+
+
+VAR vRot_categoria = "Meta"
+VAR vRot_cat_texto_cor = "#393D46"
+VAR vRot_cat_texto_tam = 12
+VAR vRot_cat_texto_peso = 600
+
+VAR vRot_cat_porc_cor = "#393D46"
+VAR vRot_cat_porc_tam = 13
+VAR vRot_cat_porc_peso = 650
+
+
+------------------------------------------
+
+VAR vPrefixo = "data:image/svg+xml, "
+
+RETURN 
+
+vPrefixo & 
+
+"
+<svg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'>
+	
+    <defs>
+        <style>
+            svg{
+                opacity: " & vOpacidade & "
+            }
+
+
+        </style>
+    </defs>
+    
+    <g id='Calendario' clip-path='url(#clip0_4455_151)'>
+		
+        
+        <rect id='contorno' x='0.5' y='0.5' width='99' height='99' rx='4.5' stroke='#CBCBCB'/>
+		
+        
+        <text id='rot_dia' text-anchor='end'  fill='" & vDia_cor & "'  font-family='" & vFonte & "' font-size='" & vDia_tam & "' font-weight='" & vDia_peso & "' >
+			<tspan x='95' y='28'>    " & vDia & "    </tspan>
+		</text>
+		
+        
+        <text id='rot_valor' text-anchor='middle' fill='" & vValor_cor & "'  font-family='" & vFonte & "' font-size='" & vValor_tam & "' font-weight='" & vValor_peso & "' >
+			<tspan x='50' y='53.8636'>        " & vValor_formatado  & "    </tspan>
+		</text>
+		
+        
+        <text id='rot_cat' fill='" & vRot_cat_texto_cor & "'  font-family='" & vFonte & "' font-size='" & vRot_cat_texto_tam & "' font-weight='" & vRot_cat_texto_peso & "' >
+			<tspan x='5' y='77.6364'>        " & vRot_categoria & "   </tspan>
+		</text>
+		
+        
+        <text id='rot_meta_perc' text-anchor='end' fill='" & vRot_cat_porc_cor & "'  font-family='" & vFonte & "' font-size='" & vRot_cat_porc_tam & "' font-weight='" & vRot_cat_porc_peso & "' >
+			<tspan x='95' y='77.8636'>       " & vPorcentagem_formatada  & "     </tspan>
+		</text>
+		
+        
+        <rect id='barra_fundo' x='5' y='86' width='90' height='7' opacity='" & vBarra_fundo_opacidade & "' fill='" & vBarra_fundo_cor & "'/>
+		
+        
+        <rect id='barra_progresso' x='5' y='86' width='" & vProgresso_ajustado & "' height='7' fill='" & vBarra_progresso_cor & "'/>
+		
+        
+        <rect id='linha_meta' x='" & vDeslocamento_linha_meta & "' y='82' width='" & vLinha_meta_largura & "' height='14' fill='" & vLinha_meta_cor & "'/>
+	
+    
+    </g>
+</svg>
+
+"
+
+
