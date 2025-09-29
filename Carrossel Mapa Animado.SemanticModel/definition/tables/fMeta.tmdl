@@ -1,0 +1,50 @@
+table fMeta
+	lineageTag: 6302f0e2-7e72-4681-bde2-84d86bc821d5
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b42178d9-a5d7-45cf-8b0e-0caafaf942da
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Total
+		dataType: decimal
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 8f4af747-4b40-4938-a39b-1d47dfe9c088
+		summarizeBy: sum
+		sourceColumn: Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Regiao
+		dataType: string
+		lineageTag: 9f6f196b-2f3f-4fc2-99ae-34b083d76840
+		summarizeBy: none
+		sourceColumn: Regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fMeta = m
+		mode: import
+		source =
+				let
+				    Fonte = baseDados,
+				    #"C:\Users\edina\Downloads\Carrossel Passo a Passo\BaseDados\_fMeta xlsx" = Fonte{[#"Folder Path"="" & Caminho & "\",Name="fMeta.xlsx"]}[Content],
+				    abrirPasta = Excel.Workbook(#"C:\Users\edina\Downloads\Carrossel Passo a Passo\BaseDados\_fMeta xlsx"),
+				    tabela = abrirPasta{[Item="Meta",Kind="Sheet"]}[Data],
+				    cabecalho = Table.PromoteHeaders(tabela, [PromoteAllScalars=true]),
+				    tipagemDados = Table.TransformColumnTypes(cabecalho,{{"Data", type date}, {"Total", Currency.Type}, {"Regiao", type text}})
+				in
+				    tipagemDados
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

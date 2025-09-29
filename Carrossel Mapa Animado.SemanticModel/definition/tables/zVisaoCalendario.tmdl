@@ -1,0 +1,50 @@
+table zVisaoCalendario
+	lineageTag: 0f3a4a9e-0d2f-4960-b184-70c0901eb9fe
+
+	measure 'Form Cond Escolha' = ```
+			
+			
+			IF( 
+			    SELECTEDVALUE( zVisaoCalendario[Ordem] ) = 3 ,
+			    "#D16961",
+			    "#4A5664"
+			)
+			
+			```
+		lineageTag: c1d9d7fe-a771-41cf-90f6-a401970bdb2f
+
+	column Escolha
+		lineageTag: 252fd127-e849-4502-babb-0472437c5bb7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Escolha]
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		formatString: 0
+		lineageTag: 6cba7ab3-57d9-4f74-8300-4b0922ff55db
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Ordem]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition zVisaoCalendario = calculated
+		mode: import
+		source =
+				
+				
+				DATATABLE(
+				    "Escolha",STRING,
+				    "Ordem", INTEGER,
+				    {
+				        { "Completo", 1 },
+				        { "Acima Meta", 2 },
+				        { "Abaixo Meta", 3 }
+				    }
+				)
+
+	annotation PBI_Id = 79b6ee7e7fc64665b3c9ef85b2782926
+

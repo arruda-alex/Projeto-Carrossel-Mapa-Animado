@@ -1,0 +1,92 @@
+table dClientes
+	lineageTag: d464cc97-8028-4f0f-a0b0-67a5b3e79a37
+
+	column 'Id Cliente'
+		dataType: int64
+		formatString: 0
+		lineageTag: 27dd4891-aa8b-4e9c-affc-803f5ca74bbf
+		summarizeBy: none
+		sourceColumn: Id Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: string
+		lineageTag: bab1689b-1a03-497a-99b6-7641d945cb35
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sexo
+		dataType: string
+		lineageTag: 447da87f-d1b0-40da-be33-f08370eaa29c
+		summarizeBy: none
+		sourceColumn: Sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id Geografia'
+		dataType: int64
+		formatString: 0
+		lineageTag: 821fddf2-3b86-4d9a-9ed5-99963edb5146
+		summarizeBy: sum
+		sourceColumn: Id Geografia
+
+		annotation SummarizationSetBy = Automatic
+
+	column UF
+		dataType: string
+		lineageTag: 7b0c0c0b-eb01-4994-9724-08e7ec1d1a04
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado
+		dataType: string
+		lineageTag: 03a556a2-c5fa-48d6-a5a8-f6a51e98d10a
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regiao
+		dataType: string
+		lineageTag: 8a219918-caa5-4d0c-9d69-3383b8b18dd1
+		summarizeBy: none
+		sourceColumn: Regiao
+		sortByColumn: RegiaoId
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegiaoId
+		dataType: string
+		lineageTag: 0b283568-a607-4cbe-ba75-79d8e554099d
+		summarizeBy: none
+		sourceColumn: RegiaoId
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dClientes = m
+		mode: import
+		source =
+				let
+				    Fonte = baseDados,
+				    #"C:\Users\edina\Downloads\Carrossel Passo a Passo\BaseDados\_Base xlsx" = Fonte{[#"Folder Path"="" & Caminho & "\",Name="Base.xlsx"]}[Content],
+				    abrirPasta = Excel.Workbook(#"C:\Users\edina\Downloads\Carrossel Passo a Passo\BaseDados\_Base xlsx"),
+				    tabela = abrirPasta{[Item="Clientes",Kind="Sheet"]}[Data],
+				    cabecalho = Table.PromoteHeaders(tabela, [PromoteAllScalars=true]),
+				    colDelimitada = Table.SplitColumn(cabecalho, "Cliente", Splitter.SplitTextByDelimiter(" - ", QuoteStyle.Csv), {"Cliente", "Sexo"}),
+				    colSubsValoresMasc = Table.ReplaceValue(colDelimitada,"M","Masculino",Replacer.ReplaceText,{"Sexo"}),
+				    colSubsValoresFem = Table.ReplaceValue(colSubsValoresMasc,"F","Feminino",Replacer.ReplaceText,{"Sexo"}),
+				    tipagemDados = Table.TransformColumnTypes(colSubsValoresFem,{{"Id Cliente", Int64.Type}, {"Cliente", type text}, {"Sexo", type text}, {"Id Geografia", Int64.Type}, {"UF", type text}, {"Estado", type text}, {"Regiao", type text}})
+				in
+				    tipagemDados
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,18 @@
+expression baseDados =
+		let
+		    Fonte = Folder.Files(Caminho)
+		in
+		    Fonte
+	lineageTag: b408f598-b330-4b38-b256-1dd8d62af6ae
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Caminho = "D:\Curso\Bônus do Curso\3.6 Carrossel Mapas\Bônus Carrossel Mapas\BaseDados" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: b1295192-4d43-4092-b22a-7bf0fa2afde7
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Text
+

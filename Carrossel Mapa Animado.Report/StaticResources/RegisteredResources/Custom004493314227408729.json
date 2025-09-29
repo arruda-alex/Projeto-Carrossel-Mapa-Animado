@@ -1,0 +1,114 @@
+{
+  "name": "Custom",
+  "textClasses": {
+    "label": {
+      "color": "#4A5664",
+      "fontFace": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
+      "fontSize": 10
+    },
+    "callout": {
+      "color": "#4A5664",
+      "fontFace": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
+      "fontSize": 20
+    },
+    "title": {
+      "color": "#4A5664",
+      "fontFace": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
+      "fontSize": 9
+    },
+    "header": {
+      "color": "#4A5664"
+    }
+  },
+  "dataColors": [
+    "#4A5664",
+    "#ADB3C1",
+    "#FFD26A",
+    "#393D46",
+    "#ECECF6",
+    "#F5F5FD",
+    "#148914",
+    "#D64550"
+  ],
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "transparency": 100
+          }
+        ],
+        "visualTooltip": [
+          {
+            "themedTitleFontColor": {
+              "solid": {
+                "color": "#C8C8C8"
+              }
+            },
+            "themedValueFontColor": {
+              "solid": {
+                "color": "#EAEAEA"
+              }
+            },
+            "themedBackground": {
+              "solid": {
+                "color": "#393D46"
+              }
+            }
+          }
+        ],
+        "visualHeaderTooltip": [
+          {
+            "themedTitleFontColor": {
+              "solid": {
+                "color": "#C8C8C8"
+              }
+            },
+            "themedBackground": {
+              "solid": {
+                "color": "#393D46"
+              }
+            }
+          }
+        ],
+        "outspacePane": [
+          {
+            "backgroundColor": {
+              "solid": {
+                "color": "#ECECF6"
+              }
+            },
+            "foregroundColor": {
+              "solid": {
+                "color": "#4A5664"
+              }
+            },
+            "checkboxAndApplyColor": {
+              "solid": {
+                "color": "#ADB3C1"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 100
+          }
+        ]
+      }
+    }
+  },
+  "foreground": "#4A5664",
+  "foregroundNeutralSecondary": "#4A5664",
+  "backgroundLight": "#ADB3C1",
+  "foregroundNeutralTertiary": "#ADB3C1"
+}

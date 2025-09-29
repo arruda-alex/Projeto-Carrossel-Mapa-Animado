@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "ee048c995183e95b022e",
+  "position": {
+    "x": 90.9943751939688,
+    "y": 613.97636411752569,
+    "z": 13001,
+    "height": 77.107102776222,
+    "width": 71.729753513569008,
+    "tabOrder": 7000
+  },
+  "visualGroup": {
+    "displayName": "Giro Carrossel",
+    "groupMode": "ScaleMode"
+  }
+}

@@ -1,0 +1,107 @@
+table fVendas
+	lineageTag: 335a5ede-d75a-4529-98aa-aac7934f9a2d
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f0f45fe0-c762-4573-a185-bbd7db24e1a7
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Id Unidade'
+		dataType: int64
+		formatString: 0
+		lineageTag: 180056e9-b364-41fa-b863-4346af1f2010
+		summarizeBy: sum
+		sourceColumn: Id Unidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id Vendedor'
+		dataType: int64
+		formatString: 0
+		lineageTag: c12a506a-7b5b-4ce3-9341-c9e351890d00
+		summarizeBy: sum
+		sourceColumn: Id Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id Produto'
+		dataType: int64
+		formatString: 0
+		lineageTag: 431c4ee5-f3d0-4879-b866-118e5b54d6f5
+		summarizeBy: sum
+		sourceColumn: Id Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id Geografia'
+		dataType: int64
+		formatString: 0
+		lineageTag: 66da2487-ede8-4bb5-9f95-2d49f40a889c
+		summarizeBy: sum
+		sourceColumn: Id Geografia
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id Cliente'
+		dataType: int64
+		formatString: 0
+		lineageTag: 233629ca-be0a-4344-a8c2-56bccec7bfdd
+		summarizeBy: none
+		sourceColumn: Id Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Custo Unitario'
+		dataType: decimal
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: c3ef7f3c-672d-49e5-9620-8c3ba6938030
+		summarizeBy: sum
+		sourceColumn: Custo Unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'Valor Unitario'
+		dataType: decimal
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 9b01b502-1705-4d42-83c2-31eceb81773e
+		summarizeBy: sum
+		sourceColumn: Valor Unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'Qtde Vendida'
+		dataType: int64
+		formatString: 0
+		lineageTag: 23e19296-ecd6-46dd-a4a7-a996190ba9fd
+		summarizeBy: sum
+		sourceColumn: Qtde Vendida
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fVendas = m
+		mode: import
+		source =
+				let
+				    Fonte = baseDados,
+				    #"C:\Users\edina\Downloads\Carrossel Passo a Passo\BaseDados\_Base xlsx" = Fonte{[#"Folder Path"="" & Caminho & "\",Name="Base.xlsx"]}[Content],
+				    abrirPasta = Excel.Workbook(#"C:\Users\edina\Downloads\Carrossel Passo a Passo\BaseDados\_Base xlsx"),
+				    tabela = abrirPasta{[Item="fVenda",Kind="Table"]}[Data],
+				    colTotaisRemovidas = Table.RemoveColumns(tabela,{"Total", "Lucro"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(colTotaisRemovidas,{{"Data", type date}, {"Id Unidade", Int64.Type}, {"Id Vendedor", Int64.Type}, {"Id Produto", Int64.Type}, {"Id Geografia", Int64.Type}, {"Id Cliente", Int64.Type}, {"Custo Unitario", Currency.Type}, {"Valor Unitario", Currency.Type}, {"Qtde Vendida", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

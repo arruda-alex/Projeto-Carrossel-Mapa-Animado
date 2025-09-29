@@ -1,0 +1,99 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 173.34797711038414,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 515.80397599381752,
+            "y": 21.139997208583381
+          },
+          "nodeIndex": "dClientes",
+          "nodeLineageTag": "d464cc97-8028-4f0f-a0b0-67a5b3e79a37",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 912.182631122629,
+            "y": 480.65864954597834
+          },
+          "nodeIndex": "fMeta",
+          "nodeLineageTag": "6302f0e2-7e72-4681-bde2-84d86bc821d5",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 173.74665177911157,
+            "y": 411.9119977668667
+          },
+          "nodeIndex": "fVendas",
+          "nodeLineageTag": "335a5ede-d75a-4529-98aa-aac7934f9a2d",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1664.5118861102042,
+            "y": 66.321330914105587
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "172e4b96-124f-465e-b37b-55d09d9db9ed",
+          "size": {
+            "height": 177.45066964417768,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 517.4173967915367,
+            "y": 832.15325052130845
+          },
+          "nodeIndex": "dCalendario",
+          "nodeLineageTag": "cd84d467-403b-4905-bf78-42a86b8da9d3",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1774.7652343310926,
+            "y": 424.55329239255707
+          },
+          "nodeIndex": "zVisaoCalendario",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 70.95554390096882,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

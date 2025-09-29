@@ -1,0 +1,17 @@
+relationship AutoDetected_3a4e1bc6-4a48-4575-a2db-31515d507a7f
+	fromColumn: fVendas.'Id Cliente'
+	toColumn: dClientes.'Id Cliente'
+
+relationship e50e6bb9-4700-9675-d8e3-4f7bd6b17c36
+	toCardinality: many
+	fromColumn: fMeta.Regiao
+	toColumn: dClientes.Regiao
+
+relationship 6d6c2b62-26eb-3572-ca53-6f68d53f708c
+	fromColumn: fVendas.Data
+	toColumn: dCalendario.Data
+
+relationship 615176f1-31c3-b74a-ae33-cee1c59093fa
+	fromColumn: fMeta.Data
+	toColumn: dCalendario.Data
+

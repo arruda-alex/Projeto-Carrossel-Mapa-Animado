@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": {
+        "visual": "1.8.99",
+        "report": "2.0.99",
+        "page": "1.3.99"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Custom004493314227408729.json",
+      "reportVersionAtImport": {
+        "visual": "1.8.99",
+        "report": "2.0.99",
+        "page": "1.3.99"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "htmlContent443BE3AD55E043BF878BED274D3A6855"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Custom004493314227408729.json",
+          "path": "Custom004493314227408729.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "bg_carrossel_(2)8573986055948679.png",
+          "path": "bg_carrossel_(2)8573986055948679.png",
+          "type": "Image"
+        },
+        {
+          "name": "4_botaoPlay9519832399871319.png",
+          "path": "4_botaoPlay9519832399871319.png",
+          "type": "Image"
+        },
+        {
+          "name": "4_botaoPlay24772227702207217.png",
+          "path": "4_botaoPlay24772227702207217.png",
+          "type": "Image"
+        },
+        {
+          "name": "4_botaoPlay9184960717514029.png",
+          "path": "4_botaoPlay9184960717514029.png",
+          "type": "Image"
+        },
+        {
+          "name": "4_botaoPlay36045939844601727.png",
+          "path": "4_botaoPlay36045939844601727.png",
+          "type": "Image"
+        },
+        {
+          "name": "4_botaoPlay3893542138511691.png",
+          "path": "4_botaoPlay3893542138511691.png",
+          "type": "Image"
+        },
+        {
+          "name": "4_botaoPlay8094278318734867.png",
+          "path": "4_botaoPlay8094278318734867.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}
